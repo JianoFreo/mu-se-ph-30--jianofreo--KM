@@ -37,7 +37,7 @@ export default function SideBar() {
       </nav>
 
       <div className="mt-auto px-6 py-5 text-xs text-ink-500">
-        <p>Data source: Neon Postgres</p>
+        <p>Data source: PostgreSQL</p>
       </div>
     </aside>
   );
