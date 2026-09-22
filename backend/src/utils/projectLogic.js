@@ -5,11 +5,14 @@ export function hasAtLeastOneEmployee(employees) {
   return Array.isArray(employees) && employees.length > 0;
 }
 
-// A project is started only when its start date has already passed.
+// A project is started once its start date/time has passed.
 export function hasProjectStarted(startDate) {
-  const today = new Date().toISOString().slice(0, 10);
+  if (!startDate) return false;
 
-  return startDate < today;
+  const start = new Date(startDate);
+  const now = new Date();
+
+  return start < now;
 }
 
 export function isValidComplexity(value) {
