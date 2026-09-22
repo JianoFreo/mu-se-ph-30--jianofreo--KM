@@ -3,7 +3,9 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   base: process.env.VITE_BASE_PATH || "/",
+
   plugins: [react()],
+
   server: {
     proxy: {
       "/api": {
@@ -12,6 +14,7 @@ export default defineConfig({
       },
     },
   },
+
   test: {
     environment: "jsdom",
     setupFiles: "./src/setupTests.js",

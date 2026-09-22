@@ -1,4 +1,4 @@
-name: Deploy React Frontend
+name: Deploy Frontend
 
 on:
   push:
@@ -38,6 +38,9 @@ jobs:
 
       - name: Build frontend
         run: npm run build
+        env:
+          VITE_BASE_PATH: /mu-se-ph-30--jianofreo--KM/
+          VITE_API_BASE_URL: https://manulife-roster.onrender.com
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

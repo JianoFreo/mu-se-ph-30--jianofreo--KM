@@ -11,7 +11,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
-app.use(cors());
+const allowedOrigins = ENV.CORS_ORIGINS
+  ? ENV.CORS_ORIGINS.split(",").map((origin) => origin.trim())
+  : [];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 app.use("/api/employees", employeesRoute);
@@ -22,11 +32,12 @@ app.get("/api/health", (req, res) => {
 });
 
 // In production, serve the built frontend as static files and fall back to
-// index.html for any unmatched route (SPA fallback) — same single-service
-// deployment pattern as TechCare.
+// index.html for any unmatched route.
 if (ENV.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "../../frontend/dist");
+
   app.use(express.static(frontendPath));
+
   app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(frontendPath, "index.html"));
   });
@@ -35,8 +46,11 @@ if (ENV.NODE_ENV === "production") {
 async function startServer() {
   try {
     await connectNeon();
+
     app.listen(ENV.PORT, () => {
-      console.log(`[server] listening on port ${ENV.PORT} (${ENV.NODE_ENV})`);
+      console.log(
+        `[server] listening on port ${ENV.PORT} (${ENV.NODE_ENV})`
+      );
     });
   } catch (error) {
     console.error("[server] failed to start:", error);
