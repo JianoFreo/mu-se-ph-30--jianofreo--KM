@@ -1,8 +1,11 @@
 # Employee & Project Directory
 
 A full-stack internal tool for browsing the employee directory and managing
-projects — built as a monorepo with an Express/Neon Postgres backend and a
-React/Vite frontend, in plain JavaScript (no TypeScript).
+projects — built as a monorepo.
+
+Client deployed on Github pages using Github actions build the React app. https://jianofreo.github.io/mu-se-ph-30--jianofreo--KM/
+
+the server runs on render
 
 ## Stack
 
