@@ -7,57 +7,6 @@ Client deployed on Github pages using Github actions build the React app. https:
 
 the server runs on render
 
-## Stack
-
-- **Backend**: Node.js, Express, JavaScript ESM (`"type": "module"`), no ORM —
-  `@neondatabase/serverless`'s tagged-template `sql` client talking directly
-  to Neon Postgres. Schema lives in `backend/src/config/db.js` as
-  `CREATE TABLE IF NOT EXISTS` statements — no separate migration files.
-- **Frontend**: React 19, Vite, Tailwind CSS, `react-router`, `axios`.
-- **Tests**: Jest (backend), Vitest + Testing Library (frontend).
-- **CI/CD**: GitHub Actions — runs both test suites, builds the frontend,
-  and deploys it to GitHub Pages on every push to `main`.
-
-## Repository layout
-
-```
-EmployeeProjectTracker/
-├── package.json                # root: delegates to backend/frontend via --prefix
-├── backend/
-│   ├── package.json            # dev: nodemon, start: node, test: jest
-│   └── src/
-│       ├── server.js           # Express app entrypoint, mounts routers
-│       ├── config/
-│       │   ├── db.js           # Neon client + schema (source of truth)
-│       │   ├── env.js          # process.env wrapper
-│       │   └── seed.js         # loads the sample employees/projects data
-│       ├── routes/
-│       │   ├── employees.route.js
-│       │   └── projects.route.js
-│       ├── controllers/
-│       │   ├── employees/      # getRequests / postRequests / deleteRequest
-│       │   └── projects/       # getRequests / postRequests
-│       ├── utils/
-│       │   ├── generateId.js   # EMP-#### / PRJ-#### ID generation
-│       │   └── projectLogic.js # the Logic Check rules (pure, unit-tested)
-│       └── __tests__/
-│           └── projectLogic.test.js
-└── frontend/
-    ├── package.json            # dev: vite, build: vite build, test: vitest
-    └── src/
-        ├── App.jsx             # shell: owns state, loadData(), routing
-        ├── main.jsx
-        ├── lib/axios.js        # shared axios instance
-        ├── utils/format.js     # date/initials/tenure helpers
-        ├── components/         # SideBar, SearchInput, Avatar, Badges,
-        │                       # Alert, EmployeeDetail, AddEmployeeModal,
-        │                       # AddProjectModal
-        ├── pages/
-        │   ├── EmployeesPage.jsx
-        │   └── ProjectsPage.jsx
-        └── __tests__/
-            └── format.test.jsx
-```
 
 ## Requirements coverage
 
